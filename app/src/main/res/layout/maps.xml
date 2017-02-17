@@ -1,0 +1,62 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.nguyenthanh.placearound.MainActivity" >
+  
+	<fragment android:name="com.nguyenthanh.placearound.MainActivity"
+        android:id="@+id/map"
+        android:layout_weight="1"
+        android:scrollbars="vertical" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        class="com.google.android.gms.maps.SupportMapFragment" />
+	
+		<RadioGroup 
+        android:id="@+id/radio_group_list_selector"
+        android:layout_width="wrap_content"
+        android:layout_height="96dp"
+        android:orientation="horizontal" 
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="15dp" >
+
+        <RadioButton
+            android:id="@+id/xedap"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/ic_cycling_normal"
+        	 />
+        <View
+            android:id="@+id/VerticalLine"
+            android:layout_width="1dip"
+            android:layout_height="match_parent"
+            android:background="#aaa" />
+
+        <RadioButton
+            android:id="@+id/oto"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/ic_driving_normal"
+            />
+
+        <View
+            android:id="@+id/VerticalLine1"
+            android:layout_width="1dip"
+            android:layout_height="match_parent"
+            android:background="#aaa" />
+
+        <RadioButton
+            android:id="@+id/dibo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/ic_walking_normal"
+             />
+        
+    </RadioGroup>
+</FrameLayout>

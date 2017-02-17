@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_sign_in"
+            android:icon="@drawable/ic_person2"
+            android:title="@string/sign_in" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/settings" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:checkable="false"
+            android:id="@+id/nav_style"
+            android:title="@string/map_style" />
+
+        <item
+            android:id="@+id/style_night"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/style_label_night" />
+        <item
+            android:id="@+id/style_retro"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/style_label_retro" />
+        <item
+            android:id="@+id/style_gray_scale"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/style_label_gray_scale" />
+        <item
+            android:id="@+id/style_default"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/style_label_default" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="@string/share" />
+    </group>
+</menu>
