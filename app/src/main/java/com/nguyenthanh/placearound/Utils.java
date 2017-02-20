@@ -3,15 +3,20 @@ package com.nguyenthanh.placearound;
 import com.google.android.gms.maps.model.LatLng;
 
 public class Utils {
-	
-	public static String KEY_PLACE = "airport" ;
-	public static byte KEY_WAY = -1 ; 
-	public static LatLng destination =null;
-	public static String strDestinaton ;
-	public static String strSnippet ;
-	// type direction 
-	public final static byte WALK    = 0 ; 
-	public final static byte BICYCLE = 1 ;
-	public final static byte OTO     = 2 ; 
+    public static String sKeyPlace = "airport";
 
+    public static byte sKeyWay = -1;
+
+    public static LatLng sDestination = null;
+
+    public static String sStrDestinaton;
+
+    public static String sStrSnippet;
+
+    // type direction
+    public static final byte WALK = 0;
+
+    public static final byte BICYCLE = 1;
+
+    public static final byte OTO = 2;
 }

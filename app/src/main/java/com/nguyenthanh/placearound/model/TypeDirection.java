@@ -1,18 +1,14 @@
 package com.nguyenthanh.placearound.model;
 
 public class TypeDirection {
-	
+    private byte tyPe;
 
-	private byte type ;
-	
-	public TypeDirection(byte type)
-	{
-		this.type = type ;
-	}
-	
-	public byte getType()
-	{
-		return this.type ;
-	}
+    public TypeDirection(byte type) {
+        this.tyPe = type;
+    }
+
+    public byte getType() {
+        return this.tyPe;
+    }
 
 }

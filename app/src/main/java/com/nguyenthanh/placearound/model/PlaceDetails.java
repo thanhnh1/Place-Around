@@ -1,20 +1,20 @@
 package com.nguyenthanh.placearound.model;
 
-import java.io.Serializable;
-
 import com.google.api.client.util.Key;
 
+import java.io.Serializable;
+
 public class PlaceDetails implements Serializable {
-	 
-	@Key
+
+    @Key
     public String status;
-     
+
     @Key
     public Place result;
- 
+
     @Override
     public String toString() {
-        if (result!=null) {
+        if (result != null) {
             return result.toString();
         }
         return super.toString();
