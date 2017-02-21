@@ -1,60 +1,50 @@
 <resources>
     <string name="app_name">Place Around</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="my_name">Ha Van Thanh</string>
+    <string name="my_name">Place Around</string>
     <string name="server_client_id">945104725933-vh1vr0ht6e3j6kpsrknb407gki63q49s.apps.googleusercontent.com</string>
-    <string name="search_title">Search:...</string>
     <string name="search_hint">Search:...</string>
-    <string name="share">Share</string>
     <string name="settings">Setting</string>
-    <string name="map_style">CHOOSE MAP STYLE</string>
-    <string name="sign_in">Sign in</string>
-    <string name="style_label_retro">Retro</string>
-    <string name="style_label_night">night</string>
-    <string name="style_label_gray_scale">Gray scale</string>
-    <string name="style_label_default">Default</string>
     <string name="style_set_to">Style set to: %1$s</string>
     <!-- items of sliding menu -->
     <string-array name="items">
-        <item >Airport</item>
-        <item >Atm</item>
-        <item >Bank</item>
-        <item >Bar</item>
-        <item >Cafe</item>
-        <item >Church</item>
-        <item >Coffee</item>
-        <item >Food</item>
-        <item >Hospital</item>
-        <item >Hotel</item>
-        <item >Library</item>
-        <item >Museum</item>
-        <item >Pizza</item>
-        <item >Police</item>
-        <item >Restaurant</item>
-        <item >Supermarket</item>
-        <item >Theatre</item>
+        <item>Airport</item>
+        <item>Atm</item>
+        <item>Bank</item>
+        <item>Bar</item>
+        <item>Cafe</item>
+        <item>Church</item>
+        <item>Coffee</item>
+        <item>Food</item>
+        <item>Hospital</item>
+        <item>Hotel</item>
+        <item>Library</item>
+        <item>Museum</item>
+        <item>Pizza</item>
+        <item>Police</item>
+        <item>Restaurant</item>
+        <item>Supermarket</item>
+        <item>Theatre</item>
     </string-array>
 
     <string-array name="compare">
-        <item >airport</item>
-        <item >atm</item>
-        <item >bank</item>
-        <item >bar</item>
-        <item >cafe</item>
-        <item >church</item>
-        <item >cafe</item>
-        <item >food</item>
-        <item >hospital</item>
-        <item >hotel</item>
-        <item >library</item>
-        <item >museum</item>
-        <item >bakery</item>
-        <item >police</item>
-        <item >restaurant</item>
-        <item >supermarket</item>
-        <item >theatre</item>
+        <item>airport</item>
+        <item>atm</item>
+        <item>bank</item>
+        <item>bar</item>
+        <item>cafe</item>
+        <item>church</item>
+        <item>cafe</item>
+        <item>food</item>
+        <item>hospital</item>
+        <item>hotel</item>
+        <item>library</item>
+        <item>museum</item>
+        <item>bakery</item>
+        <item>police</item>
+        <item>restaurant</item>
+        <item>supermarket</item>
+        <item>theatre</item>
     </string-array>
 
 </resources>

@@ -41,8 +41,8 @@ public class PlaceDirections {
 
     private byte typeWay;
 
-    public PlaceDirections(Context context, GoogleMap googleMap,
-                           LatLng from, LatLng to, byte typeWay) {
+    public PlaceDirections(Context context, GoogleMap googleMap, LatLng from, LatLng to,
+                           byte typeWay) {
         this.conText = context;
         this.googleMap = googleMap;
         this.fromPositon = from;
@@ -59,14 +59,10 @@ public class PlaceDirections {
     }
 
     private String getMapsApiDirectionsUrl() {
-
         // add more mode here
-        String waypoints =
-                "origin=" + this.fromPositon.latitude + "," + this.fromPositon.longitude
-                        + "&" +
-                        "destination=" + toPosition.latitude + "," + toPosition.longitude;
+        String waypoints = "origin=" + this.fromPositon.latitude + "," + this.fromPositon.longitude
+                        + "&" + "destination=" + toPosition.latitude + "," + toPosition.longitude;
         String routerType;
-
         if (Utils.sKeyWay == Utils.WALK) {
             routerType = "mode=walking";
         } else if (Utils.sKeyWay == Utils.BICYCLE) {
@@ -74,22 +70,22 @@ public class PlaceDirections {
         } else {
             routerType = "mode=driving";
         }
-
         String sensor = "sensor=false";
         String params = waypoints + "&" + sensor + "&" + routerType;
         String output = "json";
-        String url = "https://maps.googleapis.com/maps/api/directions/"
-                + output + "?" + params;
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + params;
         return url;
     }
 
     private void addMarkers() {
         if (googleMap != null) {
-            googleMap.addMarker(new MarkerOptions().position(fromPositon)
+            googleMap.addMarker(new MarkerOptions()
+                    .position(fromPositon)
                     .title("Me")
                     .snippet("Local of me")
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.direction_marker)));
-            googleMap.addMarker(new MarkerOptions().position(toPosition)
+            googleMap.addMarker(new MarkerOptions()
+                    .position(toPosition)
                     .title(Utils.sStrDestinaton)
                     .snippet(Utils.sStrSnippet)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.maps)));
@@ -97,7 +93,6 @@ public class PlaceDirections {
     }
 
     private class LoadDirections extends AsyncTask<String, Void, String> {
-
         @Override
         protected String doInBackground(String... url) {
             String data = "";
@@ -118,16 +113,12 @@ public class PlaceDirections {
         }
     }
 
-    private class ParserTask extends AsyncTask<String, Integer,
-            List<List<HashMap<String, String>>>> {
-
+    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String,
+            String>>>> {
         @Override
-        protected List<List<HashMap<String, String>>> doInBackground(
-                String... jsonData) {
-
+        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
             JSONObject jObject;
             List<List<HashMap<String, String>>> routes = null;
-
             try {
                 jObject = new JSONObject(jsonData[0]);
                 PathJSONParser parser = new PathJSONParser();
@@ -149,7 +140,6 @@ public class PlaceDirections {
                 List<HashMap<String, String>> path = routes.get(i);
                 for (int j = 0; j < path.size(); j++) {
                     HashMap<String, String> point = path.get(j);
-
                     double lat = Double.parseDouble(point.get("lat"));
                     double lng = Double.parseDouble(point.get("lng"));
                     LatLng position = new LatLng(lat, lng);

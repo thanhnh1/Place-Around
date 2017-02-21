@@ -1,9 +1,5 @@
 package com.nguyenthanh.placearound;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
@@ -23,16 +19,6 @@ import android.view.MenuItem;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
-import com.nguyenthanh.placearound.directions.PlaceDirections;
-import com.nguyenthanh.placearound.model.GPSTracker;
-import com.nguyenthanh.placearound.model.GooglePlaces;
-import com.nguyenthanh.placearound.model.Place;
-import com.nguyenthanh.placearound.model.Places;
-import com.nguyenthanh.placearound.view.AddItemizedOverlay;
-import com.nguyenthanh.placearound.view.AlertDialogManager;
-import com.nguyenthanh.placearound.view.ConnectionDetector;
-import com.nguyenthanh.placearound.view.SpinnerItem;
-import com.nguyenthanh.placearound.view.TitleNavigationAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
@@ -45,6 +31,20 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapController;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
+import com.nguyenthanh.placearound.directions.PlaceDirections;
+import com.nguyenthanh.placearound.model.GPSTracker;
+import com.nguyenthanh.placearound.model.GooglePlaces;
+import com.nguyenthanh.placearound.model.Place;
+import com.nguyenthanh.placearound.model.Places;
+import com.nguyenthanh.placearound.view.AddItemizedOverlay;
+import com.nguyenthanh.placearound.view.AlertDialogManager;
+import com.nguyenthanh.placearound.view.ConnectionDetector;
+import com.nguyenthanh.placearound.view.SpinnerItem;
+import com.nguyenthanh.placearound.view.TitleNavigationAdapter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends FragmentActivity implements ActionBar.OnNavigationListener,
         LocationListener {
@@ -129,7 +129,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             // stop executing code by return
             return;
         }
-
         // check able of gps 
         globalpositonSystem = new GPSTracker(this);
         if (globalpositonSystem.canGetLocation()) {
@@ -144,11 +143,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             aLert.showAlertDialog(this, "GPS Status",
                     "Couldn't get location information. Please enable GPS",
                     false);
-
         }
-
         handleIntent(getIntent());
-
     }
 
     @Override
@@ -160,12 +156,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-
             mMap.clear();
             Utils.sKeyPlace = query;
             new LoadPlaces().execute();
         }
-
     }
 
     private void initUi() {
@@ -177,7 +171,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         addBar();
         adapTer = new TitleNavigationAdapter(getApplicationContext(), navSpinner);
         actionBar.setListNavigationCallbacks(adapTer, this);
-
         RadioGroup rg = (RadioGroup) findViewById(R.id.radio_group_list_selector);
         rg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
@@ -241,7 +234,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         }
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.setMyLocationEnabled(true);
-
         listMaker = new ArrayList<Marker>();
         mMap.setOnMarkerClickListener(new OnMarkerClickListener() {
 
@@ -258,16 +250,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
     private void getcurrentLocation() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
         // Creating a criteria object to retrieve provider
         Criteria criteria = new Criteria();
-
         // Getting the name of the best provider
         String provider = locationManager.getBestProvider(criteria, true);
-
         // Getting Current Location
         Location location = locationManager.getLastKnownLocation(provider);
-
         if (location != null) {
             onLocationChanged(location);
         }
@@ -275,10 +263,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     }
 
     class LoadPlaces extends AsyncTask<String, String, String> {
-
-        /**
-         * Before starting background thread Show Progress Dialog
-         */
+         //Before starting background thread Show Progress Dialog
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -289,19 +274,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             pDialog.show();
         }
 
-        /**
-         * getting Places JSON
-         */
+         //getting Places JSON
         protected String doInBackground(String... args) {
             googlePlaces = new GooglePlaces();
-
             try {
                 String types = Utils.sKeyPlace;
                 double radius = 3000;
                 listPlace = googlePlaces.searCh(globalpositonSystem.getLatitude(),
                         globalpositonSystem.getLongitude(), radius, types);
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -333,8 +313,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                             }
                             System.out.println("hfjkdhdk" + listPlace.results.size());
                         }
-                        // add map 
-                        // load map
+                        // add map, load map
                         loadMap();
                         getcurrentLocation();
                         // draw my position 
@@ -387,7 +366,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                     }
                 }
             });
-
         }
     }
 
@@ -403,18 +381,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_main_actions, menu);
-//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//        SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
-//                .getActionView();
-//        searchView.setSearchableInfo(searchManager
-//                .getSearchableInfo(getComponentName()));
-
         return super.onCreateOptionsMenu(menu);
     }
 
-    /**
-     * On selecting action bar icons
-     */
+     //On selecting action bar icons
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -424,18 +394,22 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                 // get destination
                 LatLng des = Utils.sDestination;
                 // get ways by listview + show on map
-
                 if (way < 0) {
                     aLert.showAlertDialog(this, "Determine a type way",
-                            "Please choice a type way", false);
+                            "Please choice a type way",
+                            false);
                 } else {
                     if (des == null) {
                         aLert.showAlertDialog(this, "Place empty",
-                                "Please choice destination place", false);
+                                "Please choice destination place",
+                                false);
                     } else {
                         LatLng from = new LatLng(latiTude, longiTude);
-                        direcTions = new PlaceDirections(getApplicationContext(), mMap,
-                                from, des, way);
+                        direcTions = new PlaceDirections(getApplicationContext(),
+                                mMap,
+                                from,
+                                des,
+                                way);
                     }
                 }
                 return true;
@@ -445,9 +419,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         }
     }
 
-    /**
-     * Actionbar navigation item select listener
-     */
+
+     //Actionbar navigation item select listener
     @Override
     public boolean onNavigationItemSelected(int itemPosition, long itemId) {
         // Action to be taken after selecting a spinner item
@@ -465,17 +438,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     @Override
     public void onLocationChanged(Location location) {
         // TODO Auto-generated method stub
-
         double latitude = location.getLatitude();
-
         // Getting longitude of the current location
         double longitude = location.getLongitude();
-
         // Creating a LatLng object for the current location
         LatLng latLng = new LatLng(latitude, longitude);
-
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-
         // Zoom in, animating the camera.
         mMap.animateCamera(CameraUpdateFactory.zoomTo(14), 3000, null);
     }

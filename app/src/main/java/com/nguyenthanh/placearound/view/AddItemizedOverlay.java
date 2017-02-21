@@ -13,9 +13,7 @@ import com.google.android.maps.OverlayItem;
 
 import java.util.ArrayList;
 
-/**
- * Class used to place marker or any overlay items on Map
- */
+ //Class used to place marker or any overlay items on Map
 public class AddItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 
     private ArrayList<OverlayItem> mapOverlays = new ArrayList<OverlayItem>();
@@ -78,5 +76,4 @@ public class AddItemizedOverlay extends ItemizedOverlay<OverlayItem> {
     public void populateNow() {
         this.populate();
     }
-
 }

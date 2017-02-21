@@ -40,9 +40,7 @@ public class GooglePlaces {
         this.latiTude = latitude;
         this.longiTude = longitude;
         this.radiUs = radius;
-
         try {
-
             HttpRequestFactory httpRequestFactory = createRequestFactory(HTTP_TRANSPORT);
             HttpRequest request = httpRequestFactory
                     .buildGetRequest(new GenericUrl(PLACES_SEARCH_URL));
@@ -57,12 +55,10 @@ public class GooglePlaces {
             // Check log cat for places response status
             Log.d("Places Status", "" + list.status);
             return list;
-
         } catch (HttpResponseException e) {
             Log.e("Error:", e.getMessage());
             return null;
         }
-
     }
 
     public static HttpRequestFactory createRequestFactory(
@@ -80,22 +76,17 @@ public class GooglePlaces {
 
     public PlaceDetails getPlaceDetails(String reference) throws Exception {
         try {
-
             HttpRequestFactory httpRequestFactory = createRequestFactory(HTTP_TRANSPORT);
             HttpRequest request = httpRequestFactory
                     .buildGetRequest(new GenericUrl(PLACES_DETAILS_URL));
             request.getUrl().put("key", API_KEY);
             request.getUrl().put("reference", reference);
             request.getUrl().put("sensor", "false");
-
             PlaceDetails place = request.execute().parseAs(PlaceDetails.class);
-
             return place;
-
         } catch (HttpResponseException e) {
             Log.e("Error...", e.getMessage());
             throw e;
         }
     }
-
 }

@@ -1,62 +1,71 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.nguyenthanh.placearound.MainActivity" >
-  
-	<fragment android:name="com.nguyenthanh.placearound.MainActivity"
+    tools:context="com.nguyenthanh.placearound.MainActivity"
+    >
+
+    <fragment
         android:id="@+id/map"
-        android:layout_weight="1"
-        android:scrollbars="vertical" 
+        android:name="com.nguyenthanh.placearound.MainActivity"
+        class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        class="com.google.android.gms.maps.SupportMapFragment" />
-	
-		<RadioGroup 
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        />
+
+    <RadioGroup
         android:id="@+id/radio_group_list_selector"
         android:layout_width="wrap_content"
         android:layout_height="96dp"
-        android:orientation="horizontal" 
-        android:layout_gravity="center_horizontal"
-        android:paddingTop="15dp" >
+        android:layout_gravity="bottom|right|center_horizontal"
+        android:orientation="horizontal"
+        android:paddingTop="15dp"
+        >
 
         <RadioButton
             android:id="@+id/xedap"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal|center_vertical"
             android:layout_weight="1"
             android:background="@drawable/ic_cycling_normal"
-        	 />
+            android:gravity="center_vertical|center_horizontal"
+            />
+
         <View
             android:id="@+id/VerticalLine"
             android:layout_width="1dip"
             android:layout_height="match_parent"
-            android:background="#aaa" />
+            android:background="#aaa"
+            />
 
         <RadioButton
             android:id="@+id/oto"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal|center_vertical"
             android:layout_weight="1"
             android:background="@drawable/ic_driving_normal"
+            android:gravity="center_horizontal|center_vertical"
             />
 
         <View
             android:id="@+id/VerticalLine1"
             android:layout_width="1dip"
             android:layout_height="match_parent"
-            android:background="#aaa" />
+            android:background="#aaa"
+            />
 
         <RadioButton
             android:id="@+id/dibo"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal|center_vertical"
             android:layout_weight="1"
             android:background="@drawable/ic_walking_normal"
-             />
-        
+            android:gravity="center_horizontal|center_vertical"
+            />
+
     </RadioGroup>
 </FrameLayout>
