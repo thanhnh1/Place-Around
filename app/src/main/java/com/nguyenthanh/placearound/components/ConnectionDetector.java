@@ -1,4 +1,4 @@
-package com.nguyenthanh.placearound.view;
+package com.nguyenthanh.placearound.components;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

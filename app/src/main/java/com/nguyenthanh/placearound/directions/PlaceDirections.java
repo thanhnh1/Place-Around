@@ -15,7 +15,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.nguyenthanh.placearound.R;
 import com.nguyenthanh.placearound.Utils;
-import com.nguyenthanh.placearound.view.AlertDialogManager;
+import com.nguyenthanh.placearound.components.AlertDialogManager;
 
 import org.json.JSONObject;
 
@@ -83,12 +83,12 @@ public class PlaceDirections {
                     .position(fromPositon)
                     .title("Me")
                     .snippet("Local of me")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.direction_marker)));
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_current)));
             googleMap.addMarker(new MarkerOptions()
                     .position(toPosition)
                     .title(Utils.sStrDestinaton)
                     .snippet(Utils.sStrSnippet)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.maps)));
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_possion)));
         }
     }
 
@@ -97,7 +97,7 @@ public class PlaceDirections {
         protected String doInBackground(String... url) {
             String data = "";
             try {
-                HttpConnection http = new HttpConnection();
+                HttpUrlConnection http = new HttpUrlConnection();
                 data = http.readUrl(url[0]);
             } catch (Exception e) {
                 Log.d("Background Task", e.toString());
@@ -121,7 +121,7 @@ public class PlaceDirections {
             List<List<HashMap<String, String>>> routes = null;
             try {
                 jObject = new JSONObject(jsonData[0]);
-                PathJSONParser parser = new PathJSONParser();
+                ParserJSON parser = new ParserJSON();
                 routes = parser.parse(jObject);
             } catch (Exception e) {
                 e.printStackTrace();

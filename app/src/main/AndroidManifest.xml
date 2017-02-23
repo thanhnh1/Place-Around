@@ -33,14 +33,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ic_launcher_place_around"
         android:label="@string/app_name"
         android:theme="@style/Theme.Bar"
         >
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyD2cNaH2sBlFPh41TdDP_uVp6dqPwUk_bA"
+            android:value="AIzaSyAbvGd5CRHX6SZRR5ZmjxjteEWvhZqs8Ek"
             />
 
         <activity

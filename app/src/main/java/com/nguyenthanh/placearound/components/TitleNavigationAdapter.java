@@ -1,4 +1,4 @@
-package com.nguyenthanh.placearound.view;
+package com.nguyenthanh.placearound.components;
 
 import android.app.Activity;
 import android.content.Context;
@@ -49,7 +49,7 @@ public class TitleNavigationAdapter extends BaseAdapter {
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater)
                     conText.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = mInflater.inflate(R.layout.list_item_title_navigation, null);
+            convertView = mInflater.inflate(R.layout.activity_list_item_title, null);
         }
         imgIcon = (ImageView) convertView.findViewById(R.id.imgIcon);
         txtTitle = (TextView) convertView.findViewById(R.id.txtTitle);
@@ -64,7 +64,7 @@ public class TitleNavigationAdapter extends BaseAdapter {
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater)
                     conText.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = mInflater.inflate(R.layout.list_item_title_navigation, null);
+            convertView = mInflater.inflate(R.layout.activity_list_item_title, null);
         }
         imgIcon = (ImageView) convertView.findViewById(R.id.imgIcon);
         txtTitle = (TextView) convertView.findViewById(R.id.txtTitle);

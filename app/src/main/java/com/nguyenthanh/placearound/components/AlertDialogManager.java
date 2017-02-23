@@ -1,4 +1,4 @@
-package com.nguyenthanh.placearound.view;
+package com.nguyenthanh.placearound.components;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,7 +17,7 @@ public class AlertDialogManager {
         alertDialog.setMessage(message);
         if (status != null) {
             // Setting alert dialog icon
-            alertDialog.setIcon((status) ? R.drawable.success : R.drawable.fail);
+            alertDialog.setIcon((status) ? R.drawable.ic_dialog_success : R.drawable.ic_dialog_fail);
         }
         // Setting OK Button
         alertDialog.setButton("OK", new DialogInterface.OnClickListener() {

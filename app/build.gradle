@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'ReleaseKeytore'
+            keyPassword 'giobac'
+            storeFile file('E:/NGUYENTHANH/GIT/Place Around/app/keystore/release.keystore.jks')
+            storePassword 'giobac'
+        }
+    }
     compileSdkVersion 'Google Inc.:Google APIs:24'
     buildToolsVersion "25.0.0"
     defaultConfig {
@@ -15,6 +23,19 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+    productFlavors {
+        paid {
+            applicationId 'com.nguyenthanh.placearound.paid'
+            signingConfig signingConfigs.config
+        }
+        free {
+            applicationId 'com.nguyenthanh.placearound.free'
         }
     }
 }
@@ -22,7 +43,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.android.support:design:25.1.1'
     compile 'com.google.android.gms:play-services-maps:8.4.0'

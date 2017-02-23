@@ -1,5 +1,7 @@
 package com.nguyenthanh.placearound.directions;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,9 +9,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import android.util.Log;
-
-public class HttpConnection {
+public class HttpUrlConnection {
 
     public String readUrl(String mapsApiDirectionsUrl) throws IOException {
         String data = "";

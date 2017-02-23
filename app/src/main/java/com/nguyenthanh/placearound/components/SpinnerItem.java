@@ -1,4 +1,4 @@
-package com.nguyenthanh.placearound.view;
+package com.nguyenthanh.placearound.components;
 
 public class SpinnerItem {
 

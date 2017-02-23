@@ -4,6 +4,8 @@ import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -18,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -31,16 +34,16 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapController;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
+import com.nguyenthanh.placearound.components.AddItemOverlay;
+import com.nguyenthanh.placearound.components.AlertDialogManager;
+import com.nguyenthanh.placearound.components.ConnectionDetector;
+import com.nguyenthanh.placearound.components.SpinnerItem;
+import com.nguyenthanh.placearound.components.TitleNavigationAdapter;
 import com.nguyenthanh.placearound.directions.PlaceDirections;
 import com.nguyenthanh.placearound.model.GPSTracker;
-import com.nguyenthanh.placearound.model.GooglePlaces;
+import com.nguyenthanh.placearound.model.MapPlaces;
 import com.nguyenthanh.placearound.model.Place;
 import com.nguyenthanh.placearound.model.Places;
-import com.nguyenthanh.placearound.view.AddItemizedOverlay;
-import com.nguyenthanh.placearound.view.AlertDialogManager;
-import com.nguyenthanh.placearound.view.ConnectionDetector;
-import com.nguyenthanh.placearound.view.SpinnerItem;
-import com.nguyenthanh.placearound.view.TitleNavigationAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,7 +78,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
     private GPSTracker globalpositonSystem;
 
-    private GooglePlaces googlePlaces;
+    private MapPlaces googlePlaces;
 
     private String keyWorl;
 
@@ -101,7 +104,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
     private MapController mapControl;
 
-    private AddItemizedOverlay itemizedOverlay;
+    private AddItemOverlay itemizedOverlay;
 
     private OverlayItem overlayItem;
 
@@ -114,7 +117,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.maps);
+        setContentView(R.layout.fragment_ways_map);
 
         // init UI
         initUi();
@@ -147,6 +150,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         handleIntent(getIntent());
     }
 
+    private void getAndroidVersion() {
+        Toast.makeText(this, "Version code: " + BuildConfig.VERSION_CODE + "\n"
+                + "Version name: " + BuildConfig.VERSION_NAME + "\n" + "Build type: "
+                + BuildConfig.BUILD_TYPE + "\n" + "Product flavor: " + BuildConfig.FLAVOR
+                + "\n", Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     protected void onNewIntent(Intent intent) {
         setIntent(intent);
@@ -164,6 +174,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
     private void initUi() {
         actionBar = getActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0277BD")));
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         vaLue = getValue();
@@ -204,23 +215,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     private void addBar() {
         // Spinner title navigation data
         navSpinner = new ArrayList<SpinnerItem>();
-        navSpinner.add(new SpinnerItem(vaLue[0], R.drawable.airport));
-        navSpinner.add(new SpinnerItem(vaLue[1], R.drawable.atm));
-        navSpinner.add(new SpinnerItem(vaLue[2], R.drawable.bank));
-        navSpinner.add(new SpinnerItem(vaLue[3], R.drawable.bar));
-        navSpinner.add(new SpinnerItem(vaLue[4], R.drawable.cafe));
-        navSpinner.add(new SpinnerItem(vaLue[5], R.drawable.church));
-        navSpinner.add(new SpinnerItem(vaLue[6], R.drawable.coffee));
-        navSpinner.add(new SpinnerItem(vaLue[7], R.drawable.food));
-        navSpinner.add(new SpinnerItem(vaLue[8], R.drawable.hospital));
-        navSpinner.add(new SpinnerItem(vaLue[9], R.drawable.hotel));
-        navSpinner.add(new SpinnerItem(vaLue[10], R.drawable.library));
-        navSpinner.add(new SpinnerItem(vaLue[11], R.drawable.museum));
-        navSpinner.add(new SpinnerItem(vaLue[12], R.drawable.pizza));
-        navSpinner.add(new SpinnerItem(vaLue[13], R.drawable.police));
-        navSpinner.add(new SpinnerItem(vaLue[14], R.drawable.restaurant));
-        navSpinner.add(new SpinnerItem(vaLue[15], R.drawable.supermarket));
-        navSpinner.add(new SpinnerItem(vaLue[16], R.drawable.theatre));
+        navSpinner.add(new SpinnerItem(vaLue[0], R.drawable.ic_menu_airport));
+        navSpinner.add(new SpinnerItem(vaLue[1], R.drawable.ic_menu_atm));
+        navSpinner.add(new SpinnerItem(vaLue[2], R.drawable.ic_menu_bank));
+        navSpinner.add(new SpinnerItem(vaLue[3], R.drawable.ic_menu_bar));
+        navSpinner.add(new SpinnerItem(vaLue[4], R.drawable.ic_menu_church));
+        navSpinner.add(new SpinnerItem(vaLue[5], R.drawable.ic_menu_coffee));
+        navSpinner.add(new SpinnerItem(vaLue[6], R.drawable.ic_menu_hospital));
+        navSpinner.add(new SpinnerItem(vaLue[7], R.drawable.ic_menu_hotel));
+        navSpinner.add(new SpinnerItem(vaLue[8], R.drawable.ic_menu_library));
+        navSpinner.add(new SpinnerItem(vaLue[9], R.drawable.ic_menu_museum));
+        navSpinner.add(new SpinnerItem(vaLue[10], R.drawable.ic_menu_restaurant));
     }
 
     private void loadMap() {
@@ -276,7 +281,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
          //getting Places JSON
         protected String doInBackground(String... args) {
-            googlePlaces = new GooglePlaces();
+            googlePlaces = new MapPlaces();
             try {
                 String types = Utils.sKeyPlace;
                 double radius = 3000;
@@ -322,7 +327,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                                 .title("Me")
                                 .snippet("Local of me")
                                 .icon(BitmapDescriptorFactory
-                                        .fromResource(R.drawable.direction_marker)));
+                                        .fromResource(R.drawable.ic_marker_current)));
                         // Drawable marker icon
                         if (listPlace.results != null) {
                             // loop through all the places
@@ -334,7 +339,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                                         .title(place.name)
                                         .snippet(place.vicinity)
                                         .icon(BitmapDescriptorFactory
-                                                .fromResource(R.drawable.maps)));
+                                                .fromResource(R.drawable.ic_marker_possion)));
                                 listMaker.add(marker);
                             }
                         }
@@ -380,7 +385,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_main_actions, menu);
+        inflater.inflate(R.menu.activity_main_mnu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -414,9 +419,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                 }
                 return true;
             }
+            case R.id.action_about: {
+                getAndroidVersion();
+                break;
+            }
+
             default:
                 return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
 
 

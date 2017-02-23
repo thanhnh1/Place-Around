@@ -1,4 +1,4 @@
-package com.nguyenthanh.placearound.view;
+package com.nguyenthanh.placearound.components;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,17 +14,17 @@ import com.google.android.maps.OverlayItem;
 import java.util.ArrayList;
 
  //Class used to place marker or any overlay items on Map
-public class AddItemizedOverlay extends ItemizedOverlay<OverlayItem> {
+public class AddItemOverlay extends ItemizedOverlay<OverlayItem> {
 
     private ArrayList<OverlayItem> mapOverlays = new ArrayList<OverlayItem>();
 
     private Context conText;
 
-    public AddItemizedOverlay(Drawable defaultMarker) {
+    public AddItemOverlay(Drawable defaultMarker) {
         super(boundCenterBottom(defaultMarker));
     }
 
-    public AddItemizedOverlay(Drawable defaultMarker, Context context) {
+    public AddItemOverlay(Drawable defaultMarker, Context context) {
         this(defaultMarker);
         this.conText = context;
     }

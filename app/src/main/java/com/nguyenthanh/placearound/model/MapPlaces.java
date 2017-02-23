@@ -13,7 +13,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
-public class GooglePlaces {
+public class MapPlaces {
 
     private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 
