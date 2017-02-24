@@ -27,7 +27,7 @@
         >
 
         <RadioButton
-            android:id="@+id/xedap"
+            android:id="@+id/cycle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -43,7 +43,7 @@
             />
 
         <RadioButton
-            android:id="@+id/oto"
+            android:id="@+id/car"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -59,7 +59,7 @@
             />
 
         <RadioButton
-            android:id="@+id/dibo"
+            android:id="@+id/walk"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

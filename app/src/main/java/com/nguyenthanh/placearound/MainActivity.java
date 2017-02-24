@@ -45,10 +45,15 @@ import com.nguyenthanh.placearound.model.MapPlaces;
 import com.nguyenthanh.placearound.model.Place;
 import com.nguyenthanh.placearound.model.Places;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
+@EActivity(R.layout.fragment_ways_map)
 public class MainActivity extends FragmentActivity implements ActionBar.OnNavigationListener,
         LocationListener {
 
@@ -114,7 +119,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
     private PlaceDirections direcTions;
 
-    @Override
+    /* @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_ways_map);
@@ -122,7 +127,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         // init UI
         initUi();
 
-        // check internet 
+        // check internet
         detecTor = new ConnectionDetector(this.getApplicationContext());
         isInternet = detecTor.isConnectingToInternet();
         if (!isInternet) {
@@ -132,7 +137,39 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             // stop executing code by return
             return;
         }
-        // check able of gps 
+        // check able of gps
+        globalpositonSystem = new GPSTracker(this);
+        if (globalpositonSystem.canGetLocation()) {
+            Log.d("Your Location", "latitude:" + globalpositonSystem.getLatitude() +
+                    ", longitude: " + globalpositonSystem.getLongitude());
+            latiTude = globalpositonSystem.getLatitude();
+            longiTude = globalpositonSystem.getLongitude();
+
+            new LoadPlaces().execute();
+        } else {
+            // Can't get user's current location
+            aLert.showAlertDialog(this, "GPS Status",
+                    "Couldn't get location information. Please enable GPS",
+                    false);
+        }
+        handleIntent(getIntent());
+    } */
+
+    @AfterViews
+    public void afterViews() {
+        initUi();
+
+        // check internet
+        detecTor = new ConnectionDetector(this.getApplicationContext());
+        isInternet = detecTor.isConnectingToInternet();
+        if (!isInternet) {
+            // Internet Connection is not present
+            aLert.showAlertDialog(this, "Internet Connection Error",
+                    "Please connect to working Internet connection", false);
+            // stop executing code by return
+            return;
+        }
+        // check able of gps
         globalpositonSystem = new GPSTracker(this);
         if (globalpositonSystem.canGetLocation()) {
             Log.d("Your Location", "latitude:" + globalpositonSystem.getLatitude() +
@@ -187,15 +224,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.xedap:
+                    case R.id.cycle:
                         // TODO Something
                         Utils.sKeyWay = Utils.BICYCLE;
                         break;
-                    case R.id.oto:
+                    case R.id.car:
                         // TODO Something
                         Utils.sKeyWay = Utils.OTO;
                         break;
-                    case R.id.dibo:
+                    case R.id.walk:
                         // TODO Something
                         Utils.sKeyWay = Utils.WALK;
                         break;
@@ -268,7 +305,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     }
 
     class LoadPlaces extends AsyncTask<String, String, String> {
-         //Before starting background thread Show Progress Dialog
+        //Before starting background thread Show Progress Dialog
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -279,7 +316,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
             pDialog.show();
         }
 
-         //getting Places JSON
+        //getting Places JSON
         protected String doInBackground(String... args) {
             googlePlaces = new MapPlaces();
             try {
@@ -374,13 +411,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         }
     }
 
-    private void sendInfo(Marker marker) {
-        String strInfo = marker.getTitle() + "\n" + marker.getSnippet();
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_TEXT, strInfo);
-        shareIntent.setType("text/plain");
-        startActivity(Intent.createChooser(shareIntent, "Send via !"));
-    }
+//    private void sendInfo(Marker marker) {
+//        String strInfo = marker.getTitle() + "\n" + marker.getSnippet();
+//        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//        shareIntent.putExtra(Intent.EXTRA_TEXT, strInfo);
+//        shareIntent.setType("text/plain");
+//        startActivity(Intent.createChooser(shareIntent, "Send via !"));
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -389,7 +426,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         return super.onCreateOptionsMenu(menu);
     }
 
-     //On selecting action bar icons
+    //On selecting action bar icons
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -431,7 +468,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     }
 
 
-     //Actionbar navigation item select listener
+    //Actionbar navigation item select listener
     @Override
     public boolean onNavigationItemSelected(int itemPosition, long itemId) {
         // Action to be taken after selecting a spinner item

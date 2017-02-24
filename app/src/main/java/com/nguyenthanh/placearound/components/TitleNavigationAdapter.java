@@ -23,8 +23,7 @@ public class TitleNavigationAdapter extends BaseAdapter {
 
     private Context conText;
 
-    public TitleNavigationAdapter(Context context,
-                                  ArrayList<SpinnerItem> spinnerNavItem) {
+    public TitleNavigationAdapter(Context context, ArrayList<SpinnerItem> spinnerNavItem) {
         this.spinnerNavItem = spinnerNavItem;
         this.conText = context;
     }
