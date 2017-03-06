@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Criteria;
@@ -12,12 +13,18 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
@@ -47,6 +54,7 @@ import com.nguyenthanh.placearound.model.Places;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,7 +62,8 @@ import java.util.List;
 
 
 @EActivity(R.layout.fragment_ways_map)
-public class MainActivity extends FragmentActivity implements ActionBar.OnNavigationListener,
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        ActionBar.OnNavigationListener,
         LocationListener {
 
     public static final String KEY_REFERENCE = "reference";
@@ -62,7 +71,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     public static final String KEY_NAME = "name";
 
     //ui
-    private ActionBar actionBar;
+    private android.support.v7.app.ActionBar actionBar;
+
+    private ActionBarDrawerToggle mDrawerToggle;
+
+    @ViewById(R.id.nav_view)
+    NavigationView navigationView;
+
+    @ViewById(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
+
+    private String mActivityTitle;
 
     private ArrayList<SpinnerItem> navSpinner;
 
@@ -210,35 +229,87 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     }
 
     private void initUi() {
-        actionBar = getActionBar();
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0277BD")));
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+
+        mActivityTitle = getTitle().toString();
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.string.drawer_open, R.string.drawer_close) {
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("Navigation!");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle(mActivityTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+        navigationView.setNavigationItemSelectedListener(this);
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        /////////////////
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+
+        actionBar = getSupportActionBar();
+
+        //actionBar = getActionBar();
+        //actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0277BD")));
+        //actionBar.setDisplayShowTitleEnabled(false);
+        //actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+
         vaLue = getValue();
         comPare = getValue1();
+
         addBar();
+
         adapTer = new TitleNavigationAdapter(getApplicationContext(), navSpinner);
-        actionBar.setListNavigationCallbacks(adapTer, this);
-        RadioGroup rg = (RadioGroup) findViewById(R.id.radio_group_list_selector);
-        rg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.cycle:
-                        // TODO Something
-                        Utils.sKeyWay = Utils.BICYCLE;
-                        break;
-                    case R.id.car:
-                        // TODO Something
-                        Utils.sKeyWay = Utils.OTO;
-                        break;
-                    case R.id.walk:
-                        // TODO Something
-                        Utils.sKeyWay = Utils.WALK;
-                        break;
-                }
-            }
-        });
+//        actionBar.setListNavigationCallbacks(adapTer, this);
+//        RadioGroup rg = (RadioGroup) findViewById(R.id.radio_group_list_selector);
+//        rg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                switch (checkedId) {
+//                    case R.id.cycle:
+//                        // TODO Something
+//                        Utils.sKeyWay = Utils.BICYCLE;
+//                        break;
+//                    case R.id.car:
+//                        // TODO Something
+//                        Utils.sKeyWay = Utils.OTO;
+//                        break;
+//                    case R.id.walk:
+//                        // TODO Something
+//                        Utils.sKeyWay = Utils.WALK;
+//                        break;
+//                }
+//            }
+//        });
+
+        getSupportActionBar().setListNavigationCallbacks(adapTer,
+                new android.support.v7.app.ActionBar.OnNavigationListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+                        // Action to be taken after selecting a spinner item
+                        // dua list marker = rong
+                        if (itemPosition > 0) {
+                            mMap.clear();
+                            Utils.sKeyPlace = comPare[itemPosition];
+                            new LoadPlaces().execute();
+                            itemPosition = -1;
+                        }
+                        return true;
+                    }
+                });
+        getSupportActionBar().setIcon(R.drawable.ic_launcher_place_around);
     }
 
     private String[] getValue() {
@@ -420,6 +491,27 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 //    }
 
     @Override
+    public boolean onNavigationItemSelected (MenuItem item) {
+
+        int id = item.getItemId(); // Handle navigation view item clicks here.
+
+        if (id == R.id.nav_home) {
+            // sign in activity
+        } else if (id == R.id.nav_seting) {
+            // choose map style
+        } else if (id == R.id.nav_about) {
+            // view option activity
+//        } else if (id == R.id.fav_place) {
+//            // list of fav place activity
+//        } else if (id == R.id.share) {
+//
+        }
+
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_main_mnu, menu);
@@ -429,6 +521,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     //On selecting action bar icons
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
         switch (item.getItemId()) {
             case R.id.direc: {
                 // get type way
@@ -456,15 +553,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                 }
                 return true;
             }
-            case R.id.action_about: {
-                getAndroidVersion();
-                break;
-            }
+//            case R.id.action_about: {
+//                getAndroidVersion();
+//                break;
+//            }
 
             default:
                 return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+        //return super.onOptionsItemSelected(item);
     }
 
 
@@ -512,6 +609,28 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     public void onStatusChanged(String provider, int status, Bundle extras) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override

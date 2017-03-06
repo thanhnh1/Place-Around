@@ -6,6 +6,10 @@
     <string name="search_hint">Search:...</string>
     <string name="settings">Setting</string>
     <string name="style_set_to">Style set to: %1$s</string>
+
+    <string name="drawer_open">Menu open</string>
+    <string name="drawer_close">Menu close</string>
+
     <!-- items of sliding menu -->
     <string-array name="items">
         <item>Airport</item>
