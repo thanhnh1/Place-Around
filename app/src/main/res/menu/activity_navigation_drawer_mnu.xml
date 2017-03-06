@@ -4,13 +4,24 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
             android:title="HOME"></item>
         <item
+            android:id="@+id/nav_location"
+            android:icon="@drawable/ic_room_black_24dp"
+            android:title="LOCATION"></item>
+        <item
+            android:id="@+id/nav_traffic"
+            android:icon="@drawable/ic_traffic_black_24dp"
+            android:title="SHOW TRAFFIC"></item>
+        <item
             android:id="@+id/nav_seting"
+            android:icon="@drawable/ic_settings_black_24dp"
             android:title="SETTING">
         </item>
         <item
             android:id="@+id/nav_about"
+            android:icon="@drawable/ic_info_black_24dp"
             android:title="ABOUT">
         </item>
     </group>

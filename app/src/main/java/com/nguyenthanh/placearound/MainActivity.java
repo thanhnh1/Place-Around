@@ -3,6 +3,8 @@ package com.nguyenthanh.placearound;
 import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -11,13 +13,16 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
@@ -25,8 +30,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -138,6 +141,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private PlaceDirections direcTions;
 
+    private AlertDialog mean;
+
     /* @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,41 +183,179 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void afterViews() {
         initUi();
 
-        // check internet
-        detecTor = new ConnectionDetector(this.getApplicationContext());
-        isInternet = detecTor.isConnectingToInternet();
-        if (!isInternet) {
-            // Internet Connection is not present
-            aLert.showAlertDialog(this, "Internet Connection Error",
-                    "Please connect to working Internet connection", false);
-            // stop executing code by return
-            return;
-        }
-        // check able of gps
-        globalpositonSystem = new GPSTracker(this);
-        if (globalpositonSystem.canGetLocation()) {
-            Log.d("Your Location", "latitude:" + globalpositonSystem.getLatitude() +
-                    ", longitude: " + globalpositonSystem.getLongitude());
-            latiTude = globalpositonSystem.getLatitude();
-            longiTude = globalpositonSystem.getLongitude();
+//        // check internet
+//        detecTor = new ConnectionDetector(this.getApplicationContext());
+//        isInternet = detecTor.isConnectingToInternet();
+//        if (!isInternet) {
+//            // Internet Connection is not present
+//            aLert.showAlertDialog(this, "Internet Connection Error",
+//                    "Please connect to working Internet connection", false);
+//            // stop executing code by return
+//            return;
+//        }
 
-            new LoadPlaces().execute();
-        } else {
-            // Can't get user's current location
-            aLert.showAlertDialog(this, "GPS Status",
-                    "Couldn't get location information. Please enable GPS",
-                    false);
+        checkWifi();
+        checkGPS();
+
+        if (!(checkWifi() && checkGPS())) {
+            loadMap();
+            getcurrentLocation();
+//            AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(MainActivity.this);
+//            // Setting Dialog Title
+//            alertDialog2.setTitle("Information...");
+//            // Setting Dialog Message
+//            alertDialog2.setMessage("You can find ATM near me?");
+//            alertDialog2.setPositiveButton("Yes",
+//                    new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            // Write your code here to execute after dialog
+//                            globalpositonSystem = new GPSTracker(MainActivity.this);
+//                            if (globalpositonSystem.canGetLocation()) {
+//                                Log.d("Your Location", "latitude:" + globalpositonSystem.getLatitude() +
+//                                        ", longitude: " + globalpositonSystem.getLongitude());
+//                                latiTude = globalpositonSystem.getLatitude();
+//                                longiTude = globalpositonSystem.getLongitude();
+//
+//                                new LoadPlaces().execute();
+//                            }
+//                        }
+//                    });
+//            alertDialog2.setNegativeButton("No",
+//                    new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int id) {
+//                            dialog.cancel();
+//                        }
+//                    });
+//            // Showing Alert Dialog
+//            alertDialog2.show();
         }
+
+//        globalpositonSystem = new GPSTracker(this);
+//        if (globalpositonSystem.canGetLocation()) {
+//            Log.d("Your Location", "latitude:" + globalpositonSystem.getLatitude() +
+//                    ", longitude: " + globalpositonSystem.getLongitude());
+//            latiTude = globalpositonSystem.getLatitude();
+//            longiTude = globalpositonSystem.getLongitude();
+//
+//            new LoadPlaces().execute();
+//        }
+
+        // check able of gps
+//        globalpositonSystem = new GPSTracker(this);
+//        if (globalpositonSystem.canGetLocation()) {
+//            Log.d("Your Location", "latitude:" + globalpositonSystem.getLatitude() +
+//                    ", longitude: " + globalpositonSystem.getLongitude());
+//            latiTude = globalpositonSystem.getLatitude();
+//            longiTude = globalpositonSystem.getLongitude();
+//
+//            new LoadPlaces().execute();
+//        } else {
+//            // Can't get user's current location
+//            aLert.showAlertDialog(this, "GPS Status",
+//                    "Couldn't get location information. Please enable GPS",
+//                    false);
+//        }
         handleIntent(getIntent());
+
     }
 
-    private void getAndroidVersion() {
-        Toast.makeText(this, "Version code: " + BuildConfig.VERSION_CODE + "\n"
+    private boolean checkWifi() {
+        //check WIFI activation
+        ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+        if (mWifi.isConnected() == false) {
+            showWIFIDisabledAlertToUser();
+        }
+        else {
+            Toast.makeText(this, "WIFI is Enabled in your devide", Toast.LENGTH_SHORT).show();
+        }
+        return false;
+    }
+
+
+
+    private void showWIFIDisabledAlertToUser() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("WIFI is disabled in your device. Would you like to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Goto Settings Page To Enable WIFI",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent callGPSSettingIntent = new Intent(
+                                        Settings.ACTION_WIFI_SETTINGS);
+                                startActivity(callGPSSettingIntent);
+                            }
+                        });
+        alertDialogBuilder.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+    }
+
+    private boolean checkGPS() {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
+        }else{
+            showGPSDisabledAlertToUser();
+        }
+        return false;
+    }
+
+    private void showGPSDisabledAlertToUser(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Goto Settings Page To Enable GPS",
+                        new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int id){
+                                Intent callGPSSettingIntent = new Intent(
+                                        android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                startActivity(callGPSSettingIntent);
+                            }
+                        });
+        alertDialogBuilder.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+    }
+
+    private void showTraffic() {
+        mMap.setTrafficEnabled(true);
+    }
+
+    private void aboutVersion() {
+        AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(MainActivity.this);
+        // Setting Dialog Title
+        alertDialog2.setTitle("Information...");
+        // Setting Dialog Message
+        alertDialog2.setMessage("Version code: " + BuildConfig.VERSION_CODE + "\n"
                 + "Version name: " + BuildConfig.VERSION_NAME + "\n" + "Build type: "
                 + BuildConfig.BUILD_TYPE + "\n" + "Product flavor: " + BuildConfig.FLAVOR
-                + "\n", Toast.LENGTH_SHORT).show();
+                + "\n");
+        alertDialog2.setPositiveButton("CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Write your code here to execute after dialog
+                        dialog.cancel();
+                        Toast.makeText(getApplicationContext(),
+                                "You clicked on CANCEL", Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                });
+        // Showing Alert Dialog
+        alertDialog2.show();
     }
-
     @Override
     protected void onNewIntent(Intent intent) {
         setIntent(intent);
@@ -262,7 +405,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         actionBar = getSupportActionBar();
 
         //actionBar = getActionBar();
-        //actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0277BD")));
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0277BD")));
         //actionBar.setDisplayShowTitleEnabled(false);
         //actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
@@ -359,6 +502,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
             }
         });
+
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        //mMap.getUiSettings().setRotateGesturesEnabled(true);
+        //mMap.getUiSettings().setScrollGesturesEnabled(true);
+        //mMap.getUiSettings().setTiltGesturesEnabled(true);
+        //mMap.getUiSettings().setCompassEnabled(true);
+        mMap.getUiSettings().setIndoorLevelPickerEnabled(true);
     }
 
     private void getcurrentLocation() {
@@ -501,10 +651,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // choose map style
         } else if (id == R.id.nav_about) {
             // view option activity
-//        } else if (id == R.id.fav_place) {
-//            // list of fav place activity
-//        } else if (id == R.id.share) {
-//
+            aboutVersion();
+        } else if (id == R.id.nav_traffic) {
+            // list of fav place activity
+            showTraffic();
+
+        } else if (id == R.id.nav_location) {
+            getcurrentLocation();
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -553,10 +706,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 return true;
             }
-//            case R.id.action_about: {
-//                getAndroidVersion();
-//                break;
-//            }
+            case R.id.action_normal: {
+                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                return true;
+            }
+            case R.id.action_hybrid: {
+                mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                return true;
+            }
+            case R.id.action_satellite: {
+                mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                return true;
+            }
+            case R.id.action_terrain: {
+                mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                return true;
+            }
 
             default:
                 return super.onOptionsItemSelected(item);

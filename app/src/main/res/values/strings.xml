@@ -9,6 +9,7 @@
 
     <string name="drawer_open">Menu open</string>
     <string name="drawer_close">Menu close</string>
+    <string name="yes">Yes</string>
 
     <!-- items of sliding menu -->
     <string-array name="items">
