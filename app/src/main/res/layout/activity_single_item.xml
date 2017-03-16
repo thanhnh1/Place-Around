@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:id="@+id/tv_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Marshmallow"
+        android:layout_marginLeft="16dp"
+        android:textColor="@color/colorPrimary"
+        android:layout_below="@+id/chossing" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Android 6.0"
+        android:layout_marginLeft="16dp"
+        android:textColor="@color/colorPrimary"
+        android:layout_below="@+id/tv_id" />
+
+    <TextView
+        android:id="@+id/tv_campaign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Marshmallow"
+        android:layout_marginLeft="16dp"
+        android:textColor="@color/colorPrimary"
+        android:layout_below="@+id/tv_content" />
+
+
+    <TextView
+        android:id="@+id/tv_creatorName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Marshmallow"
+        android:layout_marginLeft="16dp"
+        android:layout_below="@id/tv_campaign"
+        android:textColor="@color/colorPrimary" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/restange"
+        android:id="@+id/chossing" />
+
+</RelativeLayout>

@@ -70,9 +70,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity_">
-
-        </activity>
+        <activity android:name=".MainActivity_"></activity>
+        <activity android:name="com.nguyenthanh.placearound.LoginApi.LoginActivity_"></activity>
+        <activity android:name="com.nguyenthanh.placearound.LoginApi.ShowContentApiActivity_"></activity>
 
     </application>
 </manifest>

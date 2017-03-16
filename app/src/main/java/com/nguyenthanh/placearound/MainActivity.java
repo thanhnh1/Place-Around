@@ -55,6 +55,8 @@ import com.nguyenthanh.placearound.model.MapPlaces;
 import com.nguyenthanh.placearound.model.Place;
 import com.nguyenthanh.placearound.model.Places;
 
+import com.nguyenthanh.placearound.LoginApi.LoginActivity_;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -143,42 +145,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private AlertDialog mean;
 
-    /* @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_ways_map);
-
-        // init UI
-        initUi();
-
-        // check internet
-        detecTor = new ConnectionDetector(this.getApplicationContext());
-        isInternet = detecTor.isConnectingToInternet();
-        if (!isInternet) {
-            // Internet Connection is not present
-            aLert.showAlertDialog(this, "Internet Connection Error",
-                    "Please connect to working Internet connection", false);
-            // stop executing code by return
-            return;
-        }
-        // check able of gps
-        globalpositonSystem = new GPSTracker(this);
-        if (globalpositonSystem.canGetLocation()) {
-            Log.d("Your Location", "latitude:" + globalpositonSystem.getLatitude() +
-                    ", longitude: " + globalpositonSystem.getLongitude());
-            latiTude = globalpositonSystem.getLatitude();
-            longiTude = globalpositonSystem.getLongitude();
-
-            new LoadPlaces().execute();
-        } else {
-            // Can't get user's current location
-            aLert.showAlertDialog(this, "GPS Status",
-                    "Couldn't get location information. Please enable GPS",
-                    false);
-        }
-        handleIntent(getIntent());
-    } */
-
     @AfterViews
     public void afterViews() {
         initUi();
@@ -197,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         checkWifi();
         checkGPS();
 
-        if (!(checkWifi() && checkGPS())) {
+        if (!(checkWifi()) && !(checkGPS())) {
             loadMap();
             getcurrentLocation();
 //            AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(MainActivity.this);
@@ -658,10 +624,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_location) {
             getcurrentLocation();
+        } else if (id == R.id.nav_login_api) {
+            loginApi();
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void loginApi() {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity_.class);
+        startActivity(intent);
     }
 
     @Override

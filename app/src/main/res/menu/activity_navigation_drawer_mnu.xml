@@ -15,6 +15,10 @@
             android:icon="@drawable/ic_traffic_black_24dp"
             android:title="SHOW TRAFFIC"></item>
         <item
+            android:id="@+id/nav_login_api"
+            android:icon="@drawable/ic_login_api"
+            android:title="LOGIN API"></item>
+        <item
             android:id="@+id/nav_seting"
             android:icon="@drawable/ic_settings_black_24dp"
             android:title="SETTING">
