@@ -1,4 +1,4 @@
-package com.nguyenthanh.placearound.model;
+package com.nguyenthanh.placearound.model_places;
 
 import android.util.Log;
 

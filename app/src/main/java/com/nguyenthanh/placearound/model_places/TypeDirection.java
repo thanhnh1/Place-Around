@@ -1,4 +1,4 @@
-package com.nguyenthanh.placearound.model;
+package com.nguyenthanh.placearound.model_places;
 
 public class TypeDirection {
     private byte tyPe;
