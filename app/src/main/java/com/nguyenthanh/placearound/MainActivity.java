@@ -65,7 +65,7 @@ import java.util.List;
 @EActivity(R.layout.fragment_ways_map)
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         android.app.ActionBar.OnNavigationListener,
-        LocationListener {
+        LocationListener, GoogleMap.OnInfoWindowClickListener {
 
     public static final String KEY_REFERENCE = "reference";
 
@@ -209,10 +209,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    private void showTraffic() {
-        mMap.setTrafficEnabled(true);
-    }
-
     private void aboutVersion() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
         alertDialog.setTitle("Information...");
@@ -231,6 +227,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 });
         alertDialog.show();
     }
+
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -348,6 +345,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navSpinner.add(new SpinnerItem(vaLue[10], R.drawable.ic_menu_restaurant));
     }
 
+
+    public void onInfoWindowClick(Marker marker) {
+
+        aLert.showAlertDialog(this, "Information",
+                marker.getTitle() + "\n" + marker.getSnippet(), false);
+
+    }
+
     private void loadMap() {
         if (mMap != null) {
             return;
@@ -373,6 +378,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
+
+        mMap.setOnInfoWindowClickListener(this);
     }
 
     private void getcurrentLocation() {
@@ -519,6 +526,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void loginApi() {
         Intent intent = new Intent(getApplicationContext(), LoginActivity_.class);
         startActivity(intent);
+    }
+
+    private void showTraffic() {
+        mMap.setTrafficEnabled(true);
     }
 
     @Override

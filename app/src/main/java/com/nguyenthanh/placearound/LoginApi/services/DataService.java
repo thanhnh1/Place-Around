@@ -32,8 +32,10 @@ public class DataService {
 
     public DataService() {
 
-        retrofit = new Retrofit.Builder().baseUrl("http://ibss.io:5599/")
-                .addConverterFactory(GsonConverterFactory.create(new Gson())).build();
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://ibss.io:5599/")
+                .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                .build();
         iRestService = retrofit.create(IRestService.class);
     }
 
