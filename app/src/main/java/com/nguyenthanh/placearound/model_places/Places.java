@@ -13,4 +13,6 @@ public class Places implements Serializable {
     @Key
     public List<Place> results;
 
+
+
 }

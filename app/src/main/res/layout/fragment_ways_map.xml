@@ -14,7 +14,9 @@
             android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            class="com.google.android.gms.maps.SupportMapFragment" />
+            class="com.google.android.gms.maps.SupportMapFragment">
+
+        </fragment>
 
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"
@@ -24,6 +26,5 @@
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/navigation_header_main"
             app:menu="@menu/activity_navigation_drawer_mnu" />
-
 
     </android.support.v4.widget.DrawerLayout>

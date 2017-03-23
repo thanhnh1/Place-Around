@@ -43,7 +43,7 @@
             android:value="AIzaSyD2eCExxESXCbOUZzf7ifHzb9WTtvpL5yM"
             />
         <activity
-            android:name=".SplashActivity">
+            android:name=".SplashActivity_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -51,6 +51,7 @@
         </activity>
 
         <activity android:name=".MainActivity_"></activity>
+        <activity android:name=".PlaceDetailsActivity_"></activity>
         <activity android:name="com.nguyenthanh.placearound.LoginApi.LoginActivity_"></activity>
         <activity android:name="com.nguyenthanh.placearound.LoginApi.ShowContentApiActivity_"></activity>
 

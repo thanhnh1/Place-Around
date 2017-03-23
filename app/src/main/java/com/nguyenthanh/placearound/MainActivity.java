@@ -138,14 +138,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @AfterViews
     public void afterViews() {
-        initUi();
         // check internet
+        content();
+
+    }
+
+    private void content() {
+        initUi();
         detecTor = new ConnectionDetector(this.getApplicationContext());
         isInternet = detecTor.isConnectingToInternet();
         if (!isInternet) {
             // Internet Connection is not present
 //            aLert.showAlertDialog(this, "Internet Connection Error",
 //                    "Please connect to working Internet connection", false);
+//            return;
 //            // stop executing code by return
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setMessage("WIFI is disabled in your device. " +
@@ -167,7 +173,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     });
             AlertDialog alert = alertDialogBuilder.create();
             alert.show();
-            return;
         }
         // check able of gps
         globalpositonSystem = new GPSTracker(this);
@@ -180,54 +185,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             new LoadPlaces().execute();
         } else {
 //            // Can't get user's current location
-//            aLert.showAlertDialog(this, "GPS Status",
-//                    "Couldn't get location information. Please enable GPS",
-//                    false);
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setMessage("GPS is disabled in your device. " +
-                    "Would you like to enable it?")
-                    .setCancelable(false)
-                    .setPositiveButton("Goto Settings Page To Enable GPS",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    Intent callGPSSettingIntent = new Intent(
-                                            android.provider.Settings
-                                                    .ACTION_LOCATION_SOURCE_SETTINGS);
-                                    startActivity(callGPSSettingIntent);
-                                }
-                            });
-            alertDialogBuilder.setNegativeButton("Cancel",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert = alertDialogBuilder.create();
-            alert.show();
+            aLert.showAlertDialog(this, "GPS Status",
+                    "Couldn't get location information. Please enable GPS",
+                    false);
+//            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+//            alertDialogBuilder.setMessage("GPS is disabled in your device. " +
+//                    "Would you like to enable it?")
+//                    .setCancelable(false)
+//                    .setPositiveButton("Goto Settings Page To Enable GPS",
+//                            new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int id) {
+//                                    Intent callGPSSettingIntent = new Intent(
+//                                            android.provider.Settings
+//                                                    .ACTION_LOCATION_SOURCE_SETTINGS);
+//                                    startActivity(callGPSSettingIntent);
+//                                }
+//                            });
+//            alertDialogBuilder.setNegativeButton("Cancel",
+//                    new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int id) {
+//                            dialog.cancel();
+//                        }
+//                    });
+//            AlertDialog alert = alertDialogBuilder.create();
+//            alert.show();
         }
         handleIntent(getIntent());
-
     }
-
-    private void aboutVersion() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
-        alertDialog.setTitle("Information...");
-        alertDialog.setMessage("Version code: " + BuildConfig.VERSION_CODE + "\n"
-                + "Version name: " + BuildConfig.VERSION_NAME + "\n" + "Build type: "
-                + BuildConfig.BUILD_TYPE + "\n" + "Product flavor: " + BuildConfig.FLAVOR
-                + "\n");
-        alertDialog.setPositiveButton("CANCEL",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        Toast.makeText(getApplicationContext(),
-                                "You clicked on CANCEL", Toast.LENGTH_SHORT)
-                                .show();
-                    }
-                });
-        alertDialog.show();
-    }
-
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -345,14 +329,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navSpinner.add(new SpinnerItem(vaLue[10], R.drawable.ic_menu_restaurant));
     }
 
-
-    public void onInfoWindowClick(Marker marker) {
-
-        aLert.showAlertDialog(this, "Information",
-                marker.getTitle() + "\n" + marker.getSnippet(), false);
-
-    }
-
     private void loadMap() {
         if (mMap != null) {
             return;
@@ -382,6 +358,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mMap.setOnInfoWindowClickListener(this);
     }
 
+    public void onInfoWindowClick(Marker marker) {
+
+//        aLert.showAlertDialog(this, "Information",
+//                marker.getTitle() + "\n" + marker.getSnippet(), false);
+        Intent intent = new
+
+    }
+
     private void getcurrentLocation() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         // Creating a criteria object to retrieve provider
@@ -409,12 +393,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         //getting Places JSON
+        @Override
         protected String doInBackground(String... args) {
             googlePlaces = new MapPlaces();
             try {
                 String types = Utils.sKeyPlace;
                 double radius = 3000;
-                listPlace = googlePlaces.searCh(globalpositonSystem.getLatitude(),
+                listPlace = googlePlaces.search(globalpositonSystem.getLatitude(),
                         globalpositonSystem.getLongitude(), radius, types);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -422,6 +407,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return null;
         }
 
+        @Override
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
@@ -450,7 +436,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         // add map, load map
                         loadMap();
                         getcurrentLocation();
-                        // draw my position 
+                        // draw my position
                         mMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(latiTude, longiTude))
                                 .title("Me")
@@ -513,23 +499,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_about) {
             aboutVersion();
         } else if (id == R.id.nav_traffic) {
-            showTraffic();
+            mMap.setTrafficEnabled(true);
         } else if (id == R.id.nav_location) {
             getcurrentLocation();
         } else if (id == R.id.nav_login_api) {
-            loginApi();
+            Intent intent = new Intent(getApplicationContext(), LoginActivity_.class);
+            startActivity(intent);
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void loginApi() {
-        Intent intent = new Intent(getApplicationContext(), LoginActivity_.class);
-        startActivity(intent);
-    }
-
-    private void showTraffic() {
-        mMap.setTrafficEnabled(true);
     }
 
     @Override
@@ -647,6 +625,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+
+        content();
     }
 
     @Override
@@ -667,4 +647,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onResume();
         loadMap();
     }
+
+
+    private void aboutVersion() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+        alertDialog.setTitle("Information...");
+        alertDialog.setMessage("Version code: " + BuildConfig.VERSION_CODE + "\n"
+                + "Version name: " + BuildConfig.VERSION_NAME + "\n" + "Build type: "
+                + BuildConfig.BUILD_TYPE + "\n" + "Product flavor: " + BuildConfig.FLAVOR
+                + "\n");
+        alertDialog.setPositiveButton("CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        Toast.makeText(getApplicationContext(),
+                                "You clicked on CANCEL", Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                });
+        alertDialog.show();
+    }
+
 }

@@ -28,18 +28,18 @@ public class MapPlaces {
     private static final String PLACES_DETAILS_URL =
             "https://maps.googleapis.com/maps/api/place/details/json?";
 
-    private double latiTude;
+    private double latitude;
 
-    private double longiTude;
+    private double longitude;
 
-    private double radiUs;
+    private double radius;
 
-    public Places searCh(double latitude, double longitude, double radius, String types)
+    public Places search(double latitude, double longitude, double radius, String types)
             throws Exception {
 
-        this.latiTude = latitude;
-        this.longiTude = longitude;
-        this.radiUs = radius;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.radius = radius;
         try {
             HttpRequestFactory httpRequestFactory = createRequestFactory(HTTP_TRANSPORT);
             HttpRequest request = httpRequestFactory

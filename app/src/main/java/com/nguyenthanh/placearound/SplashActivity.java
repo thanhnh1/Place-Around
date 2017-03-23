@@ -2,25 +2,26 @@ package com.nguyenthanh.placearound;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
+import android.view.Window;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.WindowFeature;
 
 /**
  * Created by Administrator on 3/6/2017.
  */
 
+@WindowFeature(Window.FEATURE_NO_TITLE)
+@EActivity(R.layout.activity_splash)
 public class SplashActivity extends Activity {
     /** Duration of wait **/
     private final int SPLASH_DISPLAY_LENGTH = 500;
 
     /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
-        setContentView(R.layout.activity_splash);
-
-        /* New Handler to start the Menu-Activity
-         * and close this Splash-Screen after some seconds.*/
+    @AfterViews
+    public void afterView() {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
