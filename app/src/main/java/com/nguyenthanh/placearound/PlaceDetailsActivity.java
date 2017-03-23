@@ -1,8 +1,10 @@
 package com.nguyenthanh.placearound;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
@@ -38,12 +40,12 @@ public class PlaceDetailsActivity extends AppCompatActivity {
     private GoogleMap mMap;
 
     @AfterViews
-    void afterview () {
+    void afterview() {
 
-        String s1 = getIntent().getStringExtra("lat");
-        String s2 = getIntent().getStringExtra("long");
-        String s3 = getIntent().getStringExtra("title");
-        String s4 = getIntent().getStringExtra("id");
+        String s1 = getIntent().getStringExtra("address");
+        String s2 = getIntent().getStringExtra("title");
+        String s3 = getIntent().getStringExtra("lat");
+        String s4 = getIntent().getStringExtra("lon");
 
 
         tv1.setText(s1);
@@ -52,28 +54,22 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         tv4.setText(s4);
 
     }
+
     @Click(R.id.btn1)
     void directionClicked() {
 
-
-//        if (latLng != null) {
-//            // put the String to pass back into an Intent and close this activity
-//            Intent intent = new Intent();
-//            intent.putExtra("lat", latLng.latitude);
-//            intent.putExtra("lon", latLng.longitude);
-//            setResult(RESULT_OK, intent);
-//            finish();
-//            onBackPressed();
-
-
-            LatLng des = Utils.sDestination;
-            byte way = Utils.sKeyWay;
-
-            LatLng from = new LatLng(latLng.latitude, latLng.longitude);
-            direcTions = new PlaceDirections(getApplicationContext(),
-                    mMap,
-                    from,
-                    des,
-                    way);
+        if (latLng != null) {
+            Intent intent = new Intent();
+            //intent.putExtra("lat", latLng.latitude);
+            //intent.putExtra("lon", latLng.longitude);
+            intent.getStringExtra("lat");
+            intent.getStringExtra("lon");
+            setResult(RESULT_OK, intent);
+            finish();
+            onBackPressed();
+        } else {
+            Toast.makeText(this, "Please search for a place first"
+                    , Toast.LENGTH_SHORT).show();
         }
     }
+}

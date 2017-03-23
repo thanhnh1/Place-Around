@@ -136,14 +136,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private AlertDialog mean;
 
+    private static final int FAV_LIST_ACTIVITY_RESULT_CODE = 0;
+
+    private static final int SECOND_ACTIVITY_RESULT_CODE = 0;
+
+    private double lat;
+
+    private double lon;
+
+    private double lat1;
+
+    private double lon1;
+
+
+
     @AfterViews
     public void afterViews() {
         // check internet
-        content();
-
-    }
-
-    private void content() {
         initUi();
         detecTor = new ConnectionDetector(this.getApplicationContext());
         isInternet = detecTor.isConnectingToInternet();
@@ -360,11 +369,58 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void onInfoWindowClick(Marker marker) {
 
-//        aLert.showAlertDialog(this, "Information",
-//                marker.getTitle() + "\n" + marker.getSnippet(), false);
-        Intent intent = new
+        aLert.showAlertDialog(this, "Information",
+                marker.getTitle() + "\n" + marker.getSnippet(), false);
+//        Intent intent = new Intent(this, PlaceDetailsActivity_.class);
+//        intent.putExtra("address", marker.getSnippet());
+//        intent.putExtra("title", marker.getTitle());
+//        intent.putExtra("lat", marker.getPosition().latitude);
+//        intent.putExtra("lon", marker.getPosition().longitude);
+//        startActivityForResult(intent, FAV_LIST_ACTIVITY_RESULT_CODE);
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // check that it is the SecondActivity with an OK result
+        if (requestCode == SECOND_ACTIVITY_RESULT_CODE) {
+            if (resultCode == RESULT_OK) {
+                makeDirection(data);
+            }
+        }
+        if (requestCode == FAV_LIST_ACTIVITY_RESULT_CODE) {
+
+            if (resultCode == RESULT_OK) {
+                makeDirection(data);
+
+            }
+        }
+    }
+
+    public void makeDirection(Intent data) {
+
+        lat1 = data.getDoubleExtra("lat", 10);
+        lon1 = data.getDoubleExtra("lon", 10);
+        String address = data.getStringExtra("address");
+
+        // draw destination
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(lat1, lon1))
+                .title(address)
+                .snippet(address));
+
+
+        Utils.sDestination = new LatLng(lat1, lon1);
+        LatLng des = Utils.sDestination;
+        byte way = 2;
+        LatLng from = new LatLng(lat, lon);
+        direcTions = new PlaceDirections(getApplicationContext()
+                , mMap, from, des, way);
+
+    }
+
 
     private void getcurrentLocation() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -625,8 +681,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
-
-        content();
     }
 
     @Override
