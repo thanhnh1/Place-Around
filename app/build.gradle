@@ -60,7 +60,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
 
     //compile annotation
-    apt "org.androidannotations:androidannotations:4.0.0"
+    apt "org.androidannotations:androidannotations:4.2.0"
     compile "org.androidannotations:androidannotations-api:4.0.0"
 
     //compile retrofix

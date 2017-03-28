@@ -52,8 +52,6 @@
         <activity android:name=".MainActivity_"></activity>
         <activity android:name=".MapPlaceActivity_"></activity>
         <activity android:name=".PlaceDetailsActivity_"></activity>
-        <activity android:name="com.nguyenthanh.placearound.LoginApi.LoginActivity_"></activity>
-        <activity android:name="com.nguyenthanh.placearound.LoginApi.ShowContentApiActivity_"></activity>
 
     </application>
 </manifest>

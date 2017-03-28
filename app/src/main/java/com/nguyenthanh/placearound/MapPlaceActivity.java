@@ -41,7 +41,6 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapController;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
-import com.nguyenthanh.placearound.LoginApi.LoginActivity;
 import com.nguyenthanh.placearound.components.AddItemOverlay;
 import com.nguyenthanh.placearound.components.AlertDialogManager;
 import com.nguyenthanh.placearound.components.ConnectionDetector;
@@ -493,9 +492,6 @@ public class MapPlaceActivity extends AppCompatActivity implements NavigationVie
             mMap.setTrafficEnabled(true);
         } else if (id == R.id.nav_location) {
             getcurrentLocation();
-        } else if (id == R.id.nav_login_api) {
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;

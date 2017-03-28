@@ -3,16 +3,14 @@ package com.nguyenthanh.placearound;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -26,6 +24,9 @@ import android.widget.Toast;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Administrator on 3/27/2017.
@@ -50,22 +51,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @ViewById(R.id.btn1)
     Button button;
 
+    CustomAdapterViewPayger adapter;
+    ViewPager viewPager;
+    Timer timer;
+
     @AfterViews
     public void afterView() {
 
         checkGPS();
         checkWifi();
 
-        initUi();
+        //initUi();
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MapPlaceActivity_.class);
-                startActivity(intent);
-            }
-        });
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), MapPlaceActivity_.class);
+//                startActivity(intent);
+//            }
+//        });
 
+
+        viewPager = (ViewPager) findViewById(R.id.view_payger);
+        adapter = new CustomAdapterViewPayger(this);
+        viewPager.setAdapter(adapter);
+
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new MyTimer(), 4000, 3000);
     }
 
     private boolean checkWifi() {
@@ -181,25 +193,49 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+//    @Override
+//    public void onBackPressed() {
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START);
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
+//
+//    @Override
+//    protected void onPostCreate(Bundle savedInstanceState) {
+//        super.onPostCreate(savedInstanceState);
+//        mDrawerToggle.syncState();
+//    }
+//
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        mDrawerToggle.onConfigurationChanged(newConfig);
+//    }
+
+
+    public class MyTimer extends TimerTask {
+
+        @Override
+        public void run() {
+            MainActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (viewPager.getCurrentItem() == 0) {
+                        viewPager.setCurrentItem(1);
+                    } else if (viewPager.getCurrentItem() == 1) {
+                        viewPager.setCurrentItem(2);
+                    } else if (viewPager.getCurrentItem() == 2) {
+                        viewPager.setCurrentItem(3);
+                    } else if (viewPager.getCurrentItem() == 3) {
+                        viewPager.setCurrentItem(4);
+                    } else
+                        viewPager.setCurrentItem(0);
+                }
+            });
         }
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
 }
