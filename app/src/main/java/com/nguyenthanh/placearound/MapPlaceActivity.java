@@ -48,6 +48,7 @@ import com.nguyenthanh.placearound.components.SpinnerItem;
 import com.nguyenthanh.placearound.components.TitleNavigationAdapter;
 import com.nguyenthanh.placearound.directions.PlaceDirections;
 import com.nguyenthanh.placearound.model_places.GPSTracker;
+import com.nguyenthanh.placearound.model_places.Information;
 import com.nguyenthanh.placearound.model_places.MapPlaces;
 import com.nguyenthanh.placearound.model_places.Place;
 import com.nguyenthanh.placearound.model_places.Places;
@@ -147,6 +148,8 @@ public class MapPlaceActivity extends AppCompatActivity implements NavigationVie
 
     private double lon1;
 
+    WeatherMapsActivity weatherMapsActivity;
+
     @AfterViews
     public void afterViews() {
         // check internet
@@ -161,6 +164,7 @@ public class MapPlaceActivity extends AppCompatActivity implements NavigationVie
             new LoadPlaces().execute();
         }
         handleIntent(getIntent());
+
     }
 
     @Override
@@ -168,6 +172,7 @@ public class MapPlaceActivity extends AppCompatActivity implements NavigationVie
         setIntent(intent);
         handleIntent(intent);
     }
+
 
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
@@ -310,8 +315,12 @@ public class MapPlaceActivity extends AppCompatActivity implements NavigationVie
 
     public void onInfoWindowClick(Marker marker) {
 
+        DatabaseSQLite db;
+        db = new DatabaseSQLite(this);
+        db.addPlace(new Information(marker.getSnippet(), marker.getTitle()));
         aLert.showAlertDialog(this, "Information",
                 marker.getTitle() + "\n" + marker.getSnippet(), false);
+
     }
 
     @Override
