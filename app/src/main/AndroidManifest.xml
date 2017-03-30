@@ -51,7 +51,7 @@
 
         <activity android:name=".MainActivity_"></activity>
         <activity android:name=".MapPlaceActivity_"></activity>
-        <activity android:name=".PlaceDetailsActivity_"></activity>
+        <activity android:name=".WeatherMapsActivity_"></activity>
 
     </application>
 </manifest>

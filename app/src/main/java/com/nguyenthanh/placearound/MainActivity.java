@@ -18,13 +18,19 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import com.nguyenthanh.placearound.model_places.Information;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -51,9 +57,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @ViewById(R.id.btn1)
     Button button;
 
+    @ViewById(R.id.list_view)
+    ListView listView;
+
     CustomAdapterViewPayger adapter;
     ViewPager viewPager;
     Timer timer;
+
+    @ViewById(R.id.ln_place)
+    LinearLayout linearLayoutPlace;
+
+    @ViewById(R.id.ln_weather)
+    LinearLayout linearLayoutWeather;
+
+
+    DatabaseSQLite db;
+    CustomAdapter adapter_list;
+
 
     @AfterViews
     public void afterView() {
@@ -62,22 +82,50 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         checkWifi();
 
         //initUi();
+        actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0277BD")));
 
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), MapPlaceActivity_.class);
-//                startActivity(intent);
-//            }
-//        });
-
-
+        //create view pager
         viewPager = (ViewPager) findViewById(R.id.view_payger);
         adapter = new CustomAdapterViewPayger(this);
         viewPager.setAdapter(adapter);
 
+        //set timer view pager
         timer = new Timer();
         timer.scheduleAtFixedRate(new MyTimer(), 4000, 3000);
+
+        //list view favorite
+        db = new DatabaseSQLite(this);
+        final List<Information> favPlaces = db.getAllPlace();
+        adapter_list = new CustomAdapter(favPlaces, getApplicationContext());
+        listView.setAdapter(adapter_list);
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int posision, long arg3) {
+                db.deletePlace(adapter_list.getItem(posision));
+                adapter_list.notifyDataSetChanged();
+                afterView();
+                return false;
+            }
+        });
+
+
+        linearLayoutPlace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentPlace = new Intent(getApplicationContext(), MapPlaceActivity_.class);
+                startActivity(intentPlace);
+            }
+        });
+
+        linearLayoutWeather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentWeather = new Intent(getApplicationContext(), WeatherMapsActivity_.class);
+                startActivity(intentWeather);
+            }
+        });
+
     }
 
     private boolean checkWifi() {
@@ -238,4 +286,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    @Override
+    protected void onResume() {
+        // TODO Auto-generated method stub
+        super.onResume();
+        afterView();
+    }
 }

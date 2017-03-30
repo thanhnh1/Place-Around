@@ -10,6 +10,9 @@
     <string name="drawer_open">Menu open</string>
     <string name="drawer_close">Menu close</string>
     <string name="yes">Yes</string>
+    <string name="description">You are my everything</string>
+    <string name="place">Place near me</string>
+    <string name="weather_map">Show weather on Map</string>
 
     <!-- items of sliding menu -->
     <string-array name="items">
