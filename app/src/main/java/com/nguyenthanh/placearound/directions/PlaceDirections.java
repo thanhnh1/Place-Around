@@ -64,13 +64,13 @@ public class PlaceDirections {
                         + "&" + "destination=" + toPosition.latitude + "," + toPosition.longitude;
         String routerType;
 
-//        if (Utils.sKeyWay == Utils.WALK) {
-//            routerType = "mode=walking";
-//        } else if (Utils.sKeyWay == Utils.BICYCLE) {
-//            routerType = "mode=bicycling";
-//        } else {
-//            routerType = "mode=driving";
-//        }
+        if (Utils.sKeyWay == Utils.WALK) {
+            routerType = "mode=walking";
+        } else if (Utils.sKeyWay == Utils.BICYCLE) {
+            routerType = "mode=bicycling";
+        } else {
+            routerType = "mode=driving";
+        }
 
         routerType = "mode=driving";
 
@@ -151,15 +151,15 @@ public class PlaceDirections {
                 }
                 polyLineOptions.addAll(points);
                 polyLineOptions.width(10);
-//                if (Utils.sKeyWay == Utils.WALK) {
-//                    polyLineOptions.color(Color.RED);
-//                }
-//                else if (Utils.sKeyWay == Utils.BICYCLE) {
-//                    polyLineOptions.color(Color.BLUE);
-//                }
-//                else {
-//                    polyLineOptions.color(Color.GREEN);
-//                }
+                if (Utils.sKeyWay == Utils.WALK) {
+                    polyLineOptions.color(Color.RED);
+                }
+                else if (Utils.sKeyWay == Utils.BICYCLE) {
+                    polyLineOptions.color(Color.BLUE);
+                }
+                else {
+                    polyLineOptions.color(Color.GREEN);
+                }
             }
             if (polyLineOptions == null) {
                 Toast toast = Toast.makeText(conText, "Dont have way for this type",

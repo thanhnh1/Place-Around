@@ -84,7 +84,7 @@ public class CustomAdapter extends ArrayAdapter<Information> {
 //                        View.VISIBLE :
 //                        View.GONE);
 
-        viewHolder.tvContent.setText("Name : " + dataModel.getName());
+        viewHolder.tvContent.setText("Name Place : " + dataModel.getName());
         viewHolder.tvCapaign.setText("Address: " + dataModel.getAddress());
         // Return the completed view to render on screen
         return convertView;

@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -65,7 +66,7 @@ import java.util.List;
 @EActivity(R.layout.fragment_ways_map)
 public class MapPlaceActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         android.app.ActionBar.OnNavigationListener,
-        LocationListener, GoogleMap.OnInfoWindowClickListener {
+        LocationListener, GoogleMap.OnInfoWindowClickListener, ActionBar.OnNavigationListener {
 
     public static final String KEY_REFERENCE = "reference";
 
@@ -220,27 +221,27 @@ public class MapPlaceActivity extends AppCompatActivity implements NavigationVie
         addBar();
 
         adapTer = new TitleNavigationAdapter(getApplicationContext(), navSpinner);
-//        actionBar.setListNavigationCallbacks(adapTer, this);
-//        RadioGroup rg = (RadioGroup) findViewById(R.id.radio_group_list_selector);
-//        rg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                switch (checkedId) {
-//                    case R.id.cycle:
-//                        // TODO Something
-//                        Utils.sKeyWay = Utils.BICYCLE;
-//                        break;
-//                    case R.id.car:
-//                        // TODO Something
-//                        Utils.sKeyWay = Utils.OTO;
-//                        break;
-//                    case R.id.walk:
-//                        // TODO Something
-//                        Utils.sKeyWay = Utils.WALK;
-//                        break;
-//                }
-//            }
-//        });
+        actionBar.setListNavigationCallbacks(adapTer, this);
+        RadioGroup rg = (RadioGroup) findViewById(R.id.radio_group_list_selector);
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.cycle:
+                        // TODO Something
+                        Utils.sKeyWay = Utils.BICYCLE;
+                        break;
+                    case R.id.car:
+                        // TODO Something
+                        Utils.sKeyWay = Utils.OTO;
+                        break;
+                    case R.id.walk:
+                        // TODO Something
+                        Utils.sKeyWay = Utils.WALK;
+                        break;
+                }
+            }
+        });
 
         getSupportActionBar().setListNavigationCallbacks(adapTer,
                 new android.support.v7.app.ActionBar.OnNavigationListener() {

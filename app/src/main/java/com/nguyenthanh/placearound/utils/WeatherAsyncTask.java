@@ -351,10 +351,10 @@ public class WeatherAsyncTask extends AsyncTask<Void, Void, OpenWeatherJSon> {
                 R.id.activity_weather_current_location_tv_sunrise);
         tvSunset = (TextView) aActivity.findViewById(
                 R.id.activity_weather_current_location_tv_sunset);
-        tvVisibility = (TextView) aActivity.findViewById(
-                R.id.activity_weather_current_location_tv_visibility);
-        tvDescription = (TextView) aActivity.findViewById(
-                R.id.activity_weather_current_location_tv_description);
+//        tvVisibility = (TextView) aActivity.findViewById(
+//                R.id.activity_weather_current_location_tv_visibility);
+//        tvDescription = (TextView) aActivity.findViewById(
+//                R.id.activity_weather_current_location_tv_description);
         liNear = (LinearLayout) aActivity.findViewById(
                 R.id.activity_weather_current_location_ll_info);
         llBackground = (LinearLayout)aActivity.findViewById(R.id.activity_weather_current_location_ll_info);

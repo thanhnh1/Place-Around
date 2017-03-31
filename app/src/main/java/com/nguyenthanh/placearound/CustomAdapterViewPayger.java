@@ -13,7 +13,7 @@ import android.widget.ImageView;
 
 public class CustomAdapterViewPayger extends PagerAdapter {
 
-    private int[] img = {R.drawable.pic_0, R.drawable.pic_1, R.drawable.pic_2, R.drawable.pic_3, R.drawable.pic_4};
+    private int[] img = {R.drawable.pic_1, R.drawable.pic_2, R.drawable.pic_3};
     private LayoutInflater inflater;
     private Context context;
 

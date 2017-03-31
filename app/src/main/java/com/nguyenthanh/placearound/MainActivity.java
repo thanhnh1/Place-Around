@@ -39,8 +39,7 @@ import java.util.TimerTask;
  */
 
 @EActivity(R.layout.activity_main_choose_action)
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+public class MainActivity extends AppCompatActivity {
 
     private ActionBar actionBar;
 
@@ -74,14 +73,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DatabaseSQLite db;
     CustomAdapter adapter_list;
 
-
     @AfterViews
     public void afterView() {
 
         checkGPS();
         checkWifi();
 
-        //initUi();
         actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0277BD")));
 
@@ -92,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //set timer view pager
         timer = new Timer();
-        timer.scheduleAtFixedRate(new MyTimer(), 4000, 3000);
+        timer.scheduleAtFixedRate(new MyTimer(), 5000, 5000);
 
         //list view favorite
         db = new DatabaseSQLite(this);
@@ -137,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             showWIFIDisabledAlertToUser();
         }
         else {
-            Toast.makeText(this, "WIFI is Enabled in your devide", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "WIFI is Enabled in your devide", Toast.LENGTH_SHORT).show();
         }
         return false;
     }
@@ -168,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-            Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
         }else{
             showGPSDisabledAlertToUser();
         }
@@ -197,73 +194,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         alert.show();
     }
 
-
-    private void initUi() {
-
-        mActivityTitle = getTitle().toString();
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.string.drawer_open, R.string.drawer_close) {
-            /**
-             * Called when a drawer has settled in a completely open state.
-             */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("Navigation!");
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            /**
-             * Called when a drawer has settled in a completely closed state.
-             */
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(mActivityTitle);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-        };
-
-        navigationView.setNavigationItemSelectedListener(this);
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-
-        actionBar = getSupportActionBar();
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0277BD")));
-
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        return false;
-    }
-
-//    @Override
-//    public void onBackPressed() {
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        if (drawer.isDrawerOpen(GravityCompat.START)) {
-//            drawer.closeDrawer(GravityCompat.START);
-//        } else {
-//            super.onBackPressed();
-//        }
-//    }
-//
-//    @Override
-//    protected void onPostCreate(Bundle savedInstanceState) {
-//        super.onPostCreate(savedInstanceState);
-//        mDrawerToggle.syncState();
-//    }
-//
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//        super.onConfigurationChanged(newConfig);
-//        mDrawerToggle.onConfigurationChanged(newConfig);
-//    }
-
-
     public class MyTimer extends TimerTask {
 
         @Override
@@ -275,10 +205,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         viewPager.setCurrentItem(1);
                     } else if (viewPager.getCurrentItem() == 1) {
                         viewPager.setCurrentItem(2);
-                    } else if (viewPager.getCurrentItem() == 2) {
-                        viewPager.setCurrentItem(3);
-                    } else if (viewPager.getCurrentItem() == 3) {
-                        viewPager.setCurrentItem(4);
                     } else
                         viewPager.setCurrentItem(0);
                 }
