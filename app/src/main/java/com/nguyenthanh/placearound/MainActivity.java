@@ -16,7 +16,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -106,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        linearLayoutPlace.setClickable(true);
         linearLayoutPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        linearLayoutWeather.setClickable(true);
         linearLayoutWeather.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

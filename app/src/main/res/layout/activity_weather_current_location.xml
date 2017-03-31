@@ -11,9 +11,16 @@
         android:background="@drawable/restange"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp">
+        android:paddingLeft="2.5dp"
+        android:paddingRight="2.5dp"
+        android:paddingTop="2.5dp"
+        android:paddingBottom="2.5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#CFD8DC">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -210,7 +217,7 @@
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="14dp" />
             </LinearLayout>
-
+        </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

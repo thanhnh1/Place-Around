@@ -72,7 +72,7 @@ public class PlaceDirections {
             routerType = "mode=driving";
         }
 
-        routerType = "mode=driving";
+        //routerType = "mode=driving";
 
         String sensor = "sensor=false";
         String params = waypoints + "&" + sensor + "&" + routerType;

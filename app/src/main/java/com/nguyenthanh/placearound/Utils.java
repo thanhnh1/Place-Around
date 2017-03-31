@@ -3,11 +3,12 @@ package com.nguyenthanh.placearound;
 import com.google.android.gms.maps.model.LatLng;
 
 public class Utils {
-    //public static String sKeyPlace = "airport";
 
-    public static String sKeyPlace = "null";
+    public static String sKeyPlace = "airport";
 
-    public static byte sKeyWay = 2;
+//    public static String sKeyPlace = "null";
+
+    public static byte sKeyWay = -1;
 
     public static LatLng sDestination = null;
 

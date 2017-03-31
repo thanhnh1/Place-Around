@@ -14,7 +14,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -44,7 +43,7 @@ public class WeatherMapsActivity extends FragmentActivity {
         mProg.show();
         setUpMapIfNeeded();
         addEvents();
-        markerClick();
+        //markerClick();
     }
 
     public void addEvents() {
@@ -61,17 +60,17 @@ public class WeatherMapsActivity extends FragmentActivity {
     }
 
     public void moveShowWeather(LatLng latLng) {
-        if (latLng != null) {
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new
-                    LatLng(latLng.latitude, latLng.longitude), 13));
-        }
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(new
-                LatLng(latLng.latitude, latLng.longitude)).zoom(80).bearing(90).tilt(40).build();
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+//        if (latLng != null) {
+//            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new
+//                    LatLng(latLng.latitude, latLng.longitude), 13));
+//        }
+//        CameraPosition cameraPosition = new CameraPosition.Builder().target(new
+//                LatLng(latLng.latitude, latLng.longitude)).zoom(80).bearing(90).tilt(40).build();
+        //mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         MarkerOptions option = new MarkerOptions();
         option.position(new LatLng(latLng.latitude, latLng.longitude));
-        option.title("My Location.").snippet("..");
-        option.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+        option.title("My Location");
+        option.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
         Marker maker = mMap.addMarker(option);
         WeatherAsyncTask task = new WeatherAsyncTask(maker, mMap, WeatherMapsActivity.this,
                 latLng.latitude, latLng.longitude);
@@ -154,17 +153,17 @@ public class WeatherMapsActivity extends FragmentActivity {
     public void haveLocation(LatLng lastLocation) {
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(lastLocation.latitude, lastLocation.longitude), 13));
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(new LatLng(lastLocation.latitude, lastLocation.longitude))
-                .zoom(15)                   // Sets the zoom
-                .bearing(90)                // Sets the orientation of the camera to east
-                .tilt(40)                   // Sets the tilt of the camera to 40 degrees
-                .build();                   // Creates a CameraPosition from the builder
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+//        CameraPosition cameraPosition = new CameraPosition.Builder()
+//                .target(new LatLng(lastLocation.latitude, lastLocation.longitude))
+//                .zoom(15)                   // Sets the zoom
+//                .bearing(90)                // Sets the orientation of the camera to east
+//                .tilt(40)                   // Sets the tilt of the camera to 40 degrees
+//                .build();                   // Creates a CameraPosition from the builder
+//        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         MarkerOptions option = new MarkerOptions();
         option.position(new LatLng(lastLocation.latitude, lastLocation.longitude));
-        option.title("My Location.").snippet("...");
-        option.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+        option.title("My Location.");
+        option.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
         Marker maker = mMap.addMarker(option);
         //Intent i = getIntent();
 

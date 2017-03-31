@@ -243,22 +243,22 @@ public class MapPlaceActivity extends AppCompatActivity implements NavigationVie
             }
         });
 
-        getSupportActionBar().setListNavigationCallbacks(adapTer,
-                new android.support.v7.app.ActionBar.OnNavigationListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-                        // Action to be taken after selecting a spinner item
-                        // dua list marker = rong
-                        if (itemPosition > 0) {
-                            mMap.clear();
-                            Utils.sKeyPlace = comPare[itemPosition];
-                            new LoadPlaces().execute();
-                            itemPosition = -1;
-                        }
-                        return true;
-                    }
-                });
-        getSupportActionBar().setIcon(R.drawable.ic_launcher_place_around);
+//        getSupportActionBar().setListNavigationCallbacks(adapTer,
+//                new android.support.v7.app.ActionBar.OnNavigationListener() {
+//                    @Override
+//                    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+//                        // Action to be taken after selecting a spinner item
+//                        // dua list marker = rong
+//                        if (itemPosition > 0) {
+//                            mMap.clear();
+//                            Utils.sKeyPlace = comPare[itemPosition];
+//                            new LoadPlaces().execute();
+//                            itemPosition = -1;
+//                        }
+//                        return true;
+//                    }
+//                });
+//        getSupportActionBar().setIcon(R.drawable.ic_launcher_place_around);
     }
 
     private String[] getValue() {
@@ -320,7 +320,7 @@ public class MapPlaceActivity extends AppCompatActivity implements NavigationVie
         db = new DatabaseSQLite(this);
         db.addPlace(new Information(marker.getSnippet(), marker.getTitle()));
         aLert.showAlertDialog(this, "Information",
-                marker.getTitle() + "\n" + marker.getSnippet(), false);
+                "Name: " + marker.getTitle() + "\n" + "Address: " + marker.getSnippet(), true);
 
     }
 
