@@ -149,7 +149,7 @@ public class MyInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         tvHumidty.setText(humidity);
         tvSunrise.setText(strSunrise);
         tvSunset.setText(strSunset);
-        v.findViewById(R.id.activity_weather_current_location_iv_wind);
+        //v.findViewById(R.id.activity_weather_current_location_iv_wind);
         try {
             Geocoder geocoder;
             List<Address> addresses;
@@ -189,7 +189,7 @@ public class MyInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         tvWind.setText(strWind);
   //      tvPressure.setText(strPressure);
         tvHumidty.setText(strHumidity);
-        v.findViewById(R.id.activity_weather_current_location_iv_wind);
+        //v.findViewById(R.id.activity_weather_current_location_iv_wind);
         try {
             Geocoder geocoder;
             List<Address> addresses;

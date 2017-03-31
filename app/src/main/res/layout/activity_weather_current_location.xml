@@ -4,17 +4,16 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center">
 
-
     <LinearLayout
         android:id="@+id/activity_weather_current_location_ll_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/restange"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="10dp"
-        android:background="@drawable/restange">
+        android:paddingTop="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,10 +25,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:padding="10dp"
                 android:text="Address"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="30dp" />
+                android:textSize="25dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -61,9 +59,8 @@
                         android:layout_height="wrap_content"
                         android:text="Large Text"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
                 </LinearLayout>
-
 
                 <TextView
                     android:id="@+id/activity_weather_tv_temp"
@@ -73,192 +70,147 @@
                     android:text="TEMP"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#da1d1d"
-                    android:textSize="70dp" />
-
+                    android:textSize="30dp" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-
         <LinearLayout
             android:id="@+id/activity_weather_current_location_sv_srollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingTop="20dp"
             android:layout_marginTop="5dp"
-            >
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <TableLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="3dp">
 
-                <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="Temp: "
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14dp" />
 
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
+                <TextView
+                    android:id="@+id/activity_weather_current_location_tv_temps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="Temp_max_min"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14dp" />
+            </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/activity_weather_current_location_iv_temps"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                             />
+            <LinearLayout
 
-                        <TextView
-                            android:id="@+id/activity_weather_current_location_tv_temps"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:paddingLeft="5dp"
-                            android:text="Temp_max_min"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="3dp">
 
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textSize="14dp" />
-                    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="Wind: "
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14dp" />
 
-                    <LinearLayout
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:id="@+id/activity_weather_current_location_iv_wind"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            />
-
-                        <TextView
-                            android:id="@+id/activity_weather_current_location_tv_wind"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:paddingLeft="5dp"
-                            android:text="Wind"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textSize="14dp" />
-                    </LinearLayout>
-                </TableRow>
-
-                <TableRow>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:id="@+id/activity_weather_current_location_iv_humidity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            />
-
-                        <TextView
-                            android:id="@+id/activity_weather_current_location_tv_humidity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:paddingLeft="5dp"
-                            android:text="humidity"
-
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textSize="14dp" />
-                    </LinearLayout>
+                <TextView
+                    android:id="@+id/activity_weather_current_location_tv_wind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="Wind"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14dp" />
+            </LinearLayout>
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="3dp">
 
-                        <ImageView
-                            android:id="@+id/activity_weather_current_location_iv_visibility"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                             />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="Humidity: "
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14dp" />
 
-                        <TextView
-                            android:id="@+id/activity_weather_current_location_tv_visibility"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:paddingLeft="10dp"
-                            android:text="Not found"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textSize="14dp" />
-                    </LinearLayout>
+                <TextView
+                    android:id="@+id/activity_weather_current_location_tv_humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="humidity"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14dp" />
+            </LinearLayout>
 
-                </TableRow>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="3dp">
 
-                <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="Sunrise"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14dp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
+                <TextView
+                    android:id="@+id/activity_weather_current_location_tv_sunrise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="Not found"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14dp" />
+            </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/activity_weather_current_location_iv_sunrise"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                             />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="3dp">
 
-                        <TextView
-                            android:id="@+id/activity_weather_current_location_tv_sunrise"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:paddingLeft="5dp"
-                            android:text="Not found"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textSize="14dp" />
-                    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="Sunset"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14dp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
+                <TextView
+                    android:id="@+id/activity_weather_current_location_tv_sunset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="Not found"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="14dp" />
+            </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/activity_weather_current_location_iv_sunset"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                             />
-
-                        <TextView
-                            android:id="@+id/activity_weather_current_location_tv_sunset"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:paddingLeft="5dp"
-                            android:text="Not found"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textSize="14dp" />
-                    </LinearLayout>
-                </TableRow>
-            </TableLayout>
         </LinearLayout>
     </LinearLayout>
 

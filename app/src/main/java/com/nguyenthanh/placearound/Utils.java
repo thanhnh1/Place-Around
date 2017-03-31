@@ -16,9 +16,9 @@ public class Utils {
     public static String sStrSnippet;
 
     // type direction
-//    public static final byte WALK = 0;
-//
-//    public static final byte BICYCLE = 1;
-//
-//    public static final byte OTO = 2;
+    public static final byte WALK = 0;
+
+    public static final byte BICYCLE = 1;
+
+    public static final byte OTO = 2;
 }
