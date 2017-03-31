@@ -22,7 +22,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.nguyenthanh.placearound.model_places.Information;
 
@@ -137,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             showWIFIDisabledAlertToUser();
         }
         else {
-            Toast.makeText(this, "WIFI is Enabled in your devide", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "WIFI is Enabled in your devide", Toast.LENGTH_SHORT).show();
         }
         return false;
     }
@@ -168,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-            Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
         }else{
             showGPSDisabledAlertToUser();
         }
